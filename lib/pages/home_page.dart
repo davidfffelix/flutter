@@ -20,6 +20,75 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('AppBar'),
       ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            const UserAccountsDrawerHeader(
+              currentAccountPicture: CircleAvatar(
+                backgroundColor: Colors.black,
+                child: Text('D'),
+              ),
+              accountName: Text(
+                'David',
+              ),
+              accountEmail: Text(
+                'David@email.com',
+              ),
+            ),
+            ListTile(
+              title: const Text(
+                'Item 1',
+              ),
+              trailing: const Icon(
+                Icons.arrow_forward,
+              ),
+              onTap: () {
+                _pageController.jumpToPage(0);
+                Navigator.pop(context);
+                setState(
+                  () {
+                    indexBottomNavigationBar = 0;
+                  },
+                );
+              },
+            ),
+            ListTile(
+              title: const Text(
+                'Item 2',
+              ),
+              trailing: const Icon(
+                Icons.arrow_circle_down,
+              ),
+              onTap: () {
+                _pageController.jumpToPage(1);
+                Navigator.pop(context);
+                setState(
+                  () {
+                    indexBottomNavigationBar = 1;
+                  },
+                );
+              },
+            ),
+            ListTile(
+              title: const Text(
+                'Item 3',
+              ),
+              trailing: const Icon(
+                Icons.arrow_downward,
+              ),
+              onTap: () {
+                _pageController.jumpToPage(2);
+                Navigator.pop(context);
+                setState(
+                  () {
+                    indexBottomNavigationBar = 2;
+                  },
+                );
+              },
+            ),
+          ],
+        ),
+      ),
       body: PageView(
         controller: _pageController,
         children: [
