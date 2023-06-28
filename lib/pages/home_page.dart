@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+import 'pageViews/one_page.dart';
+
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final PageController _pageController = PageController();
+
+  int indexBottomNavigationBar = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -9,47 +20,32 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('AppBar'),
       ),
-      body: Column(
+      body: PageView(
+        controller: _pageController,
         children: [
+          const OnePage(),
           Container(
-            height: 200,
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              color: Colors.blue,
-            ),
-            child: const Center(
-              child: Text(
-                'Olá Mundo!',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                ),
-              ),
-            ),
+            color: Colors.red,
           ),
-          Row(
-            children: [
-              Container(
-                color: Colors.red,
-                height: 100,
-                width: 200,
-                child: const Center(
-                  child: Text('Container 1'),
-                ),
-              ),
-              Container(
-                color: Colors.purple,
-                height: 100,
-                width: 192.5,
-                child: const Center(
-                  child: Text('Container 2'),
-                ),
-              ),
-            ],
+          Container(
+            color: Colors.yellow,
           ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: indexBottomNavigationBar,
+        onTap: (int page) {
+          setState(
+            () {
+              indexBottomNavigationBar = page;
+            },
+          );
+          _pageController.animateToPage(
+            page,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.ease,
+          );
+        },
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.ac_unit),
